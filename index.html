@@ -11,7 +11,7 @@
     <div class="formstyle">
         <form name="form1">
             <p id="history"></p>
-            <input id="calc" type="text" name="answer" onkeyup="clearInputBox()"> <br> <br>
+            <input id="calc" type="text" name="answer" oninput="clearInputBox()"> <br> <br>
             <input type="button" value="1" onclick="addNumbersAndOperators(numbers = 1)">
             <input type="button" value="2" onclick="addNumbersAndOperators(numbers = 2)">
             <input type="button" value="3" onclick="addNumbersAndOperators(numbers = 3)">
@@ -52,7 +52,7 @@
         var history2 = '';
         var history3 = '';
         var input = document.getElementById("calc");
-
+        var h = '';
 
         function addNumbersAndOperators(numbers) {
             if (evaluationDone && answer != '') {
@@ -64,11 +64,11 @@
             answer += numbers;
             document.getElementById('calc').value = answer;
             histories = 1;
-            console.log(answer);
         }
 
         function getAnswer() {
             answer = document.getElementById('calc').value;
+            h = document.getElementById('calc').value;
 
             if (answer.charAt(0).charCodeAt(0) === 8730) {
                 squareRoot = answer.substring(1);
@@ -120,19 +120,27 @@
             if (event.key === "Enter") {
             event.preventDefault();
             getAnswer();
+            history.push(h + '=' + eval(h));
+            document.getElementById('history').innerHTML = history;
         }
         });
 
         function clearInputBox() {
-            if (evaluationDone && answer != '') {
-                var newValue = document.getElementById('calc').value;
+            var h = document.getElementById('calc').value;
+            number = document.getElementById('calc').value.charAt((document.getElementById('calc').value).length - 1);
+            if((number === "+" || number === '-' || number === '*' || number === '/') && evaluationDone){
+                evaluationDone = false;
+                return;
+            }
 
-                if (newValue.charAt(newValue.length-1) == '+') {
-                    evaluationDone = false;
-                }
+            else if(evaluationDone) {
+                document.getElementById('calc').value =
+                document.getElementById('calc').value.charAt((document.getElementById('calc').value).length - 1);
+                evaluationDone = false;
+                answer = '';
+                return;
             }
         }
-
     </script>
 </body>
 </html>
