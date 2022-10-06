@@ -52,7 +52,7 @@
         var history2 = '';
         var history3 = '';
         var input = document.getElementById("calc");
-        var h = '';
+        var inputValue = '';
 
         function addNumbersAndOperators(numbers) {
             if (evaluationDone && answer != '') {
@@ -120,7 +120,7 @@
             if (event.key === "Enter") {
             event.preventDefault();
             getAnswer();
-            history.push(h + '=' + eval(h));
+            history.push(inputValue + '=' + eval(inputValue));
             document.getElementById('history').innerHTML = history;
         }
         });
