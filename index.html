@@ -117,6 +117,7 @@
         }
 
         input.addEventListener("keypress", function(event) {
+            inputValue = document.getElementById('calc').value;
             if (event.key === "Enter") {
             event.preventDefault();
             getAnswer();
