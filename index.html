@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title> JavaScript Calculator </title>
     <link rel="stylesheet" href="style.css">
@@ -35,6 +34,7 @@
             <input type="button" value="." onclick="setEvaluation(), addNumbersAndOperators(numbers = '.')">
             <input type="button" value="x2" onclick="setEvaluation(), addNumbersAndOperators(numbers = 'x')">
             <input type="button" value="&radic;" onclick="setEvaluation(), addNumbersAndOperators(numbers = '&radic;')">
+            <input type="button" value="%" onclick="setEvaluation(), addNumbersAndOperators(numbers = '%')">
             <input type="button" value="=" onclick="getAnswer(), displayHistory()">
             <br>
             <input type="button" value="Clear All" id="clear" onclick="clearOutput();">
@@ -53,6 +53,8 @@
         var history3 = '';
         var input = document.getElementById("calc");
         var inputValue = '';
+        var percentage = '';
+
 
         function addNumbersAndOperators(numbers) {
             if (evaluationDone && answer != '') {
@@ -60,14 +62,17 @@
                 document.getElementById('calc').value = '';
                 evaluationDone = false;
             }
-
+            if (answer = document.getElementById('calc').value) {
+                answer = document.getElementById('calc').value
+            }
             answer += numbers;
-            document.getElementById('calc').value = answer;
+            document.getElementById('calc').value =  answer;
             histories = 1;
         }
 
         function getAnswer() {
             answer = document.getElementById('calc').value;
+            percentage = answer.replace('%', '/100')
             h = document.getElementById('calc').value;
 
             if (answer.charAt(0).charCodeAt(0) === 8730) {
@@ -87,7 +92,18 @@
                 histories = 3;
             }
             history3 = answer;
-            answer = document.getElementById('calc').value = eval(answer);
+
+            answer = document.getElementById('calc').value;
+
+            if (percentage) {
+                answer = percentage;
+            }
+            else {
+                answer = document.getElementById('calc').value;
+            }
+            answer = '' + eval(answer);
+            document.getElementById('calc').value = answer;
+
             evaluationDone = true;
         }
 
@@ -121,7 +137,7 @@
             if (event.key === "Enter") {
             event.preventDefault();
             getAnswer();
-            history.push(inputValue + '=' + eval(inputValue));
+            history.push(history3 + '=' + answer);
             document.getElementById('history').innerHTML = history;
         }
         });
